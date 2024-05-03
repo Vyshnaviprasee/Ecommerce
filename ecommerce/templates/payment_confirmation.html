@@ -1,0 +1,18 @@
+<!-- payment_confirmation.html -->
+{% extends "base.html" %}
+{% block title %}Payment Confirmation{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5 py-5">
+    <div class="card text-center mx-auto py-5" style="max-width: 500px;">
+        <div class="card-body p-5 py-5">
+            <h2 class="card-title mb-4">Payment Confirmation</h2>
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-check-circle text-success mb-4" viewBox="0 0 16 16">
+              <path d="M11.73 4.73a.75.75 0 0 1 1.06 1.06l-5 5a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06L6 9.94l4.73-4.73zm-7 7a.75.75 0 0 1 0-1.06l1.97-1.97a.75.75 0 1 1 1.06 1.06l-1.22 1.22 2.72 2.72a.75.75 0 0 1-1.06 1.06L4.72 11.5l-.97.97z"/>
+            </svg>
+            <p class="card-text">Your payment was successful. Thank you for your purchase!</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

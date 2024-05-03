@@ -1,0 +1,25 @@
+<!-- course_detail.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ course.course_name }} - Course Detail{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5 py-5 d-flex justify-content-center align-items-center flex-column ">
+    <div class="row mt-5">
+        <div class="col-md-6 rounded">
+            <img src="{{ course.course_img.url }}" class="img-fluid mb-4 rounded" alt="{{ course.course_name }}">
+        </div>
+        <div class="col-md-6">
+            <h2 class="mb-4">{{ course.course_name }}</h2>
+            <div class="card mb-4 rounded ">
+                <div class="card-body py-3 ">
+                    <h5 class="card-title mb-4">Price: ₹{{ course.price }}</h5>
+                    <p class="card-text">{{ course.desc }}</p>
+                    <button class="btn btn-primary">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

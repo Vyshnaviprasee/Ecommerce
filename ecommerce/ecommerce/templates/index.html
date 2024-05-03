@@ -1,0 +1,104 @@
+<!-- python_course.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero py-5 d-flex align-items-end" style="background-image: url('{% static "img/banner1.jpg" %}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 90vh;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 text-white">
+          <h1>Welcome to E-Learning Platform</h1>
+          <p>Start your learning journey today!</p>
+          <a href="{% url 'course' %}" class="btn btn-primary">Explore Courses</a>
+        </div>
+      </div>
+    </div>
+</section>
+
+  <!-- Category Section -->
+  <section id="categories" class="categories py-5">
+    <div class="container">
+      <h2 class="text-center mb-4 py-3">Featured Categories</h2>
+      <div class="row">
+        {% for category in categories %}
+          <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+              <img src="{{ category.img.url }}" class="card-img-top" alt="{{ category.category_name }}">
+              <div class="card-body">
+                <h5 class="card-title">{{ category.category_name }}</h5>
+                <p class="card-text">{{ category.desc }}</p>
+                <a href="{% url 'products_by_category' category_slug=category.slug %}" class="btn btn-primary">Explore {{ category.category_name }}</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  
+
+<!-- Courses Section -->
+<section id="courses" class="courses py-5">
+  <div class="container">
+    <h2 class="text-center mb-4 py-3">Our Courses</h2>
+    <div class="row">
+      {% for course in courses %}
+      <div class="col-lg-4 mb-4">
+        <div class="card">
+          <img src="{{ course.course_img.url }}" class="card-img-top" alt="Python Course">
+          <div class="card-body">
+            <h5 class="card-title">{{ course.course_name }}</h5>
+            <p class="card-text">Learn Python from scratch to advanced level.</p>
+            <p class="card-text">Price: ₹{{ course.price }}</p>
+            <a href="{% url 'course_detail' category_slug=course.category.slug course_slug=course.slug %}" class="btn btn-primary">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Testimonial Section -->
+<section class="testimonial py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Student Testimonials</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">"I loved the Python course! It was well-structured and easy to follow. I highly recommend it to anyone looking to learn programming."</p>
+                        <p class="card-text"><strong>John Doe</strong>, Python Student</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">"The Java course was fantastic! The instructor was very knowledgeable, and the exercises helped me grasp complex concepts easily."</p>
+                        <p class="card-text"><strong>Jane Smith</strong>, Java Student</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">"ReactJS course exceeded my expectations! The hands-on projects were my favorite part, and now I feel confident building web applications."</p>
+                        <p class="card-text"><strong>Michael Johnson</strong>, ReactJS Student</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+  <!-- Footer -->
+  
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Store{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+      <div class="col-md-8">
+        <h2 class="py-4">Featured Courses</h2>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted ">Showing {{ courses.count }} courses</span>
+        </div>
+        <div class="row">
+        {% for course in courses %}
+          <div class="col-md-6 mb-4">
+            <div class="card">
+                <img src="{{ course.course_img.url }}" class="card-img-top" alt="{{ course.course_name }}">
+                <div class="card-body">
+                  <h5 class="card-title">{{ course.course_name }}</h5>
+                  <p class="card-text">{{ course.desc }}</p>
+                  <p class="card-text">Price: ₹ {{course.price}}</p>                  
+                  <a href="{% url 'course_detail' category_slug=course.category.slug course_slug=course.slug %}" class="btn btn-primary">Enroll Now</a>
+                </div>
+              </div>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+      <div class="col-md-4 py-4">
+        <h2 class="py-4">Categories</h2>
+        <ul class="list-group">
+          {% for category in links %}
+           
+          <a href="{% url 'products_by_category' category_slug=category.slug %}" class="list-group-item bg-dark list-group-item-action active mb-3 p-3 rounded">{{ category.category_name }}</a>
+            
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

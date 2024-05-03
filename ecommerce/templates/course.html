@@ -1,0 +1,32 @@
+<!-- python_course.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Python Course{% endblock %}
+
+{% block content %}
+
+  <!-- Courses Section -->
+  <section id="courses" class="courses py-5">
+    <div class="container">
+      <h2 class="text-center mb-4  py-3">Our Courses</h2>
+      <div class="row">
+        {% for course in courses %}
+        <div class="col-lg-4 mb-4">
+          <div class="card">
+            <img src="{{course.course_img.url}}" class="card-img-top" alt="Python Course">
+            <div class="card-body">
+              <h5 class="card-title">{{course.course_name}}</h5>
+              <p class="card-text">Learn Python from scratch to advanced level.</p>
+              <p class="card-text">Price: ₹{{course.price}}</p>
+              <a href="{% url 'course_detail' category_slug=course.category.slug course_slug=course.slug %}" class="btn btn-primary">Enroll Now</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+  </section>
+
+
+
+{% endblock %}
