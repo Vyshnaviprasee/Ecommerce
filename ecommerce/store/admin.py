@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Course, Order
+from . models import *
 
 # Register your models here.
 

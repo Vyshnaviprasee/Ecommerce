@@ -33,11 +33,17 @@ def course_detail(request, category_slug, course_slug):
 
 def add_to_cart(request, category_slug, course_slug):
     course = get_object_or_404(Course, slug=course_slug)
+    
     if 'cart' not in request.session:
         request.session['cart'] = []
-    request.session['cart'].append(course.id)
-    request.session.modified = True
+
+    cart_course_ids = request.session.get('cart', [])
+    if course.id not in cart_course_ids:
+        request.session['cart'].append(course.id)
+        request.session.modified = True
+
     return redirect('cart')
+
 
 def cart(request):
     cart_course_ids = request.session.get('cart', [])
@@ -48,6 +54,15 @@ def cart(request):
         'total_price': total_price
     }
     return render(request, 'cart.html', context)
+
+def delete_from_cart(request, course_id):
+    if 'cart' in request.session:
+        cart_course_ids = request.session.get('cart')
+        if course_id in cart_course_ids:
+            cart_course_ids.remove(course_id)
+            request.session['cart'] = cart_course_ids
+            request.session.modified = True
+    return redirect('cart')
 
 def checkout(request):
     if request.POST:
