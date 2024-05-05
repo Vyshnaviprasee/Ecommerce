@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Course, Category, Order
-from accounts.models import User
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 

@@ -1,12 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
+from store.models import Course  # Import the Course model from the store app
 
-# Create your models here.
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    selected_courses = models.ManyToManyField(Course)
 
-class User(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100)
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
-    confirm_password = models.CharField(max_length=100)
-    
+    # Add any other fields you need for the user profile
