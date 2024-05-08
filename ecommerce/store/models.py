@@ -42,3 +42,16 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order #{self.pk} - {self.user.username}"
+
+# store/models.py
+
+class Tutorial(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    video_url = models.URLField()
+    thumbnail = models.ImageField(upload_to='tutorial_thumbnails', null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+

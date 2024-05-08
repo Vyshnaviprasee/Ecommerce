@@ -1,0 +1,11 @@
+/* Add custom styles if needed */
+.video-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .video-thumbnail {
+    width: 100%;
+    height: auto;
+  }
+  

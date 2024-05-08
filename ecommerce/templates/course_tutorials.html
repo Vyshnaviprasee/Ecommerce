@@ -1,0 +1,40 @@
+<!-- course_tutorials.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Course Tutorials{% endblock %}
+
+{% block content %}
+<section id="tutorials" class="tutorials py-5">
+    <div class="container">
+        <h2 class="text-center mb-4 py-3">Course Tutorials</h2>
+        <div class="row">
+            {% for tutorial in tutorials %}
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <!-- Add a container to wrap the video and thumbnail -->
+                        <div class="video-container position-relativ mb-3">
+                            {% if tutorial.thumbnail %}
+                            <img src="{{ tutorial.thumbnail.url }}" alt="{{ tutorial.title }}" class="img-fluid video-thumbnail rounded shadow">
+                            {% endif %}
+                            <!-- <div class="embed-responsive embed-responsive-16by9 mt-3">
+                                <iframe class="embed-responsive-item" src="{{ tutorial.video_url }}" allowfullscreen></iframe>
+                            </div> -->
+                        </div>
+                        <h5 class="card-title">{{ tutorial.title }}</h5>
+                        <p class="card-text">{{ tutorial.description }}</p>
+                        <!-- Centered button with width 100% -->
+                        <a href="#" class="btn btn-primary d-block mx-auto w-100">Watch</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+  
+  
+
+{% endblock %}

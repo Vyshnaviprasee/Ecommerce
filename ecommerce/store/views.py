@@ -100,3 +100,17 @@ def checkout(request):
 def payment_confirmation(request):
     # Render payment confirmation page
     return render(request, 'payment_confirmation.html')
+
+# store/views.py
+
+def course_tutorials(request, course_id):
+    try:
+        course = Course.objects.get(pk=course_id)
+        tutorials = Tutorial.objects.filter(course=course)
+        context = {
+            'course': course,
+            'tutorials': tutorials
+        }
+        return render(request, 'course_tutorials.html', context)
+    except Course.DoesNotExist:
+        return HttpResponse("Course does not exist.")
