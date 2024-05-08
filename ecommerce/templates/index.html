@@ -19,6 +19,35 @@
     </div>
 </section>
 
+
+<!-- Purchased Courses Section -->
+<section id="purchased-courses" class="purchased-courses py-5">
+  <div class="container">
+    <h2 class="text-center mb-4 py-3">Available Subjects</h2>
+    <p class="text-center mb-5">Browse subscribed & subjects and course contents</p>
+    <div class="container">
+      <!-- Display purchased courses -->
+      <div class="row">
+        {% for course in purchased_courses %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <img class="card-img-top" src="{{ course.course_img.url }}" alt="{{ course.title }}">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ course.course_name }}</h4>
+                        <p class="card-text">{{ course.desc }}</p>
+                        <a href="#" class="btn btn-primary">20 Classes</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+      </div>
+
+  </div>
+  
+  </div>
+</section>
+
+
   <!-- Category Section -->
   <section id="categories" class="categories py-5">
     <div class="container">

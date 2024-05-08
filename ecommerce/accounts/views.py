@@ -59,6 +59,7 @@ def user_logout(request):
     auth_logout(request)
     messages.info(request, 'Logged out successfully')
     return redirect('index')  # Redirect to the homepage or any other appropriate page
+  # Redirect to the homepage or any other appropriate page
 
 
 def view_profile(request):
@@ -68,7 +69,15 @@ def view_profile(request):
         
         # Query the Order model to get the courses purchased by the user
         user_orders = Order.objects.filter(user=request.user)
-        purchased_courses = [order.course for order in user_orders]
+        purchased_courses = []
+        for order in user_orders:
+            # Append a dictionary with course attributes to purchased_courses list
+            purchased_courses.append({
+                'title': order.course.course_name,
+                'description': order.course.desc,
+                'price': order.course.price,
+                'payment_status': order.get_status_display()  # Use get_status_display() to get the display value of status field
+            })
 
         return render(request, 'view_profile.html', {'user_profile': user_profile, 'purchased_courses': purchased_courses})
     except UserProfile.DoesNotExist:

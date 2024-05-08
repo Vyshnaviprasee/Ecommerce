@@ -4,43 +4,71 @@
 {% block title %}View Profile{% endblock %}
 
 {% block content %}
-<div class="container mt-5 mb-5 py-5">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title mb-4">User Profile</h2>
-                    <div class="mb-4">
-                        <h5 class="card-subtitle mb-2 text-muted">Username</h5>
-                        <p class="card-text">{{ user_profile.user.username }}</p>
-                    </div>
-                    <div class="mb-4">
-                        <h5 class="card-subtitle mb-2 text-muted">Name</h5>
-                        <p class="card-text">{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</p>
-                    </div>
-                    <div class="mb-4">
-                        <h5 class="card-subtitle mb-2 text-muted">Email</h5>
-                        <p class="card-text">{{ user_profile.user.email }}</p>
-                    </div>
-                    <h5 class="card-title mb-3">Selected Courses</h5>
-                    <ul class="list-group">
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row py-5">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{ user_profile.user.username }}</h5>
+                        <p class="text-muted mb-1">{{ user_profile.user.email }}</p>
                         {% for course in purchased_courses %}
-                        <li class="list-group-item">
-                            <div class="row align-items-center">
-                                <div class="col-md-6">
-                                    <h5>{{ course.course_name }}</h5>
-                                    <p>{{ course.desc }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="{{ course.course_img.url }}" alt="{{ course.course_name }}" class="img-fluid rounded">
+                        <h5 class="card-title mb-3">{{ course.title }}</h5>
+                        {% endfor %}
+                        <div class="d-flex justify-content-center mb-4">
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                class="btn btn-primary">Follow</button>
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                class="btn btn-outline-primary ms-1">Message</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <h5 class="card-subtitle mb-2 text-muted">Full Name</h5>
+                            <p class="card-text">{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="card-subtitle mb-2 text-muted">Email</h5>
+                            <p class="card-text">{{ user_profile.user.email }}</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="card-subtitle mb-2 text-muted">Phone</h5>
+                            <p class="card-text">(097) 234-5678</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="mb-4">
+                                    <h5 class="card-subtitle mb-2 text-muted">Account Status</h5>
+                                    <p class="card-text">Active</p>
                                 </div>
                             </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                {% for purchased_course in purchased_courses %}
+                                <div class="mb-4">
+                                    <h5 class="card-subtitle mb-2 text-muted">{{ purchased_course.title }}</h5>
+                                    <p class="card-text">Payment Status: {{ purchased_course.payment_status }}</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}

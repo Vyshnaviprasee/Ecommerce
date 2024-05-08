@@ -1,5 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Course, Category, Order
+from .models import *
+from accounts.models import *
+from django.contrib import messages
+from django.http import HttpResponse
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -74,11 +78,12 @@ def checkout(request):
             return redirect('cart')
         # Retrieve the courses in the cart
         courses_in_cart = Course.objects.filter(id__in=cart_course_ids)
-        # Calculate total price
-        total_price = sum(course.price for course in courses_in_cart)
-        # Create an order for each course in the cart
-        for course in courses_in_cart:
-            order = Order.objects.create(
+        # Calculate total price and create orders
+        total_price = 0  # Initialize total price
+        for course_id in cart_course_ids:
+            course = Course.objects.get(id=course_id)
+            total_price += course.price  # Add course price to total price
+            Order.objects.create(
                 user=request.user,
                 course=course,
                 quantity=1,  # You may adjust this based on your requirements
@@ -86,9 +91,10 @@ def checkout(request):
             )
         # Clear the cart after placing the order
         del request.session['cart']
-        # Redirect the user to the homepage
-        return redirect('payment_confirmation')
+        # Redirect the user to the payment confirmation page
+        return redirect('payment_confirmation', total_price=total_price)
     return render(request, 'checkout.html')
+
 
 
 def payment_confirmation(request):
