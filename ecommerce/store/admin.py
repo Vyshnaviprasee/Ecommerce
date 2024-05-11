@@ -3,6 +3,10 @@
 from django.contrib import admin
 from .models import Course, Order, Tutorial
 
+class TutorialAdmin(admin.ModelAdmin):
+    list_display = ('title', 'course', 'module_number')  # Customize the fields displayed in the admin list view
+
+
 class TutorialInline(admin.TabularInline):
     model = Tutorial
     extra = 1
@@ -20,4 +24,4 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Order, OrderAdmin)
-admin.site.register(Tutorial)
+admin.site.register(Tutorial, TutorialAdmin)

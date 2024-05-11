@@ -91,26 +91,72 @@ def checkout(request):
             )
         # Clear the cart after placing the order
         del request.session['cart']
-        # Redirect the user to the payment confirmation page
+        # Redirect the user to the payment confirmation page with the total_price parameter
         return redirect('payment_confirmation', total_price=total_price)
     return render(request, 'checkout.html')
 
 
 
-def payment_confirmation(request):
-    # Render payment confirmation page
-    return render(request, 'payment_confirmation.html')
+def payment_confirmation(request, total_price):
+    # Render payment confirmation page with the total_price context variable
+    return render(request, 'payment_confirmation.html', {'total_price': total_price})
 
 # store/views.py
+
+# views.py
 
 def course_tutorials(request, course_id):
     try:
         course = Course.objects.get(pk=course_id)
         tutorials = Tutorial.objects.filter(course=course)
+        
+        # Retrieve the count of tutorials related to the course
+        total_modules = tutorials.count()
+        
         context = {
             'course': course,
-            'tutorials': tutorials
+            'tutorials': tutorials,
+            'total_modules': total_modules  # Add total modules count to the context
         }
         return render(request, 'course_tutorials.html', context)
+    except Course.DoesNotExist:
+        return HttpResponse("Course does not exist.")
+
+# views.py
+
+def tutorial_details(request, tutorial_id):
+    tutorial = get_object_or_404(Tutorial, pk=tutorial_id)
+    
+    # Get the category of the current tutorial
+    category = tutorial.course.category
+    
+    # Get the upcoming tutorials in the same category, excluding the current tutorial
+    upcoming_tutorials = Tutorial.objects.filter(course__category=category).exclude(id=tutorial_id)
+    
+    context = {
+        'tutorial': tutorial,
+        'upcoming_tutorials': upcoming_tutorials
+    }
+    return render(request, 'tutorial_details.html', context)
+
+
+
+def up_next_tutorials(request, course_id):
+    try:
+        # Retrieve the purchased course
+        course = Course.objects.get(pk=course_id)
+        
+        # Retrieve the category of the purchased course
+        category = course.category
+        
+        # Filter upcoming tutorials from the same category
+        latest_module_number = Tutorial.objects.filter(course__category=category).aggregate(Max('module_number'))['module_number__max']
+        up_next_tutorials = Tutorial.objects.filter(course__category=category, module_number__gt=latest_module_number).order_by('module_number')
+        
+        context = {
+            'course': course,
+            'up_next_tutorials': up_next_tutorials
+        }
+        return render(request, 'up_next_tutorials.html', context)
     except Course.DoesNotExist:
         return HttpResponse("Course does not exist.")

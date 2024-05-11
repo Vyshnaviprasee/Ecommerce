@@ -1,0 +1,55 @@
+<!-- tutorial_detail.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Tutorial Details{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mt-5">
+        <div class="col-md-8">
+            {% if tutorial.video_url %}
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="{{ tutorial.video_url }}" allowfullscreen></iframe>
+                </div>
+            {% else %}
+                <p class="text-muted">No video available for this tutorial.</p>
+            {% endif %}
+            <div class="mt-5">
+                <!-- Course Title -->
+                <h2 class="mb-4">{{ tutorial.title }}</h2>
+                <!-- Course Description -->
+                <p class="mb-4">{{ tutorial.description }}</p>
+                <!-- Course Instructor -->
+                <p class="mb-2"><strong>Instructor:</strong> John Doe</p>
+                <!-- Course Duration -->
+                <p class="mb-2"><strong>Duration:</strong> 4 weeks</p>
+            </div>
+        </div>
+        <div class="col-md-4 mt-5">
+           
+        
+            <!-- Introduction -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Introduction</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                </div>
+            </div>
+        
+            <!-- Course Requirements -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Course Requirements</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Requirement 1</li>
+                        <li class="list-group-item">Requirement 2</li>
+                        <li class="list-group-item">Requirement 3</li>
+                        <!-- Add more requirements as needed -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

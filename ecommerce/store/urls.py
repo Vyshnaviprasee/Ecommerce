@@ -10,8 +10,10 @@ urlpatterns = [
     path('cart/', views.cart, name='cart'),
     path('delete-from-cart/<int:course_id>/', views.delete_from_cart, name='delete_from_cart'),
     path('checkout/', views.checkout, name='checkout'),  # Define the checkout URL pattern
-    path('payment-confirmation/', views.payment_confirmation, name='payment_confirmation'),  # Define the payment confirmation URL pattern
+    path('payment-confirmation/<int:total_price>/', views.payment_confirmation, name='payment_confirmation'),
     path('course/<int:course_id>/tutorials/', views.course_tutorials, name='course_tutorials'),
+    path('tutorial/<int:tutorial_id>/', views.tutorial_details, name='tutorial_details'),
+
 
 
 ]

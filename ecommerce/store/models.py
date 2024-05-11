@@ -51,6 +51,7 @@ class Tutorial(models.Model):
     description = models.TextField()
     video_url = models.URLField()
     thumbnail = models.ImageField(upload_to='tutorial_thumbnails', null=True, blank=True)
+    module_number = models.PositiveIntegerField(default=1)  # Default value changed to 1
 
     def __str__(self):
         return self.title

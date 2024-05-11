@@ -7,7 +7,12 @@
 {% block content %}
 <section id="tutorials" class="tutorials py-5">
     <div class="container">
-        <h2 class="text-center mb-4 py-3">Course Tutorials</h2>
+        <!-- Display course name and total number of modules in the course -->
+        <div class="heading mb-4">
+            <h2 class="text-center">{{ course.course_name }}</h2>
+            <p class="text-center">Total Modules: {{ total_modules }}</p>
+        </div>
+        <!-- End heading -->
         <div class="row">
             {% for tutorial in tutorials %}
             <div class="col-lg-4 mb-4">
@@ -24,8 +29,14 @@
                         </div>
                         <h5 class="card-title">{{ tutorial.title }}</h5>
                         <p class="card-text">{{ tutorial.description }}</p>
+                        <span class="badge badge-primary">Module {{ tutorial.module_number }}</span> <!-- Display module number as badge -->
                         <!-- Centered button with width 100% -->
-                        <a href="#" class="btn btn-primary d-block mx-auto w-100">Watch</a>
+                        {% if tutorial.video_url %}
+                            <a href="{% url 'tutorial_details' tutorial.id %}" class="btn btn-primary d-block mx-auto w-100">Watch</a>
+                        {% else %}
+                            <button class="btn btn-primary d-block mx-auto w-100" disabled>Watch</button>
+                        {% endif %}
+                   
                     </div>
                 </div>
             </div>
@@ -33,8 +44,4 @@
         </div>
     </div>
 </section>
-
-  
-  
-
 {% endblock %}
