@@ -12,7 +12,9 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout'),  # Define the checkout URL pattern
     path('payment-confirmation/<int:total_price>/', views.payment_confirmation, name='payment_confirmation'),
     path('course/<int:course_id>/tutorials/', views.course_tutorials, name='course_tutorials'),
-    path('tutorial/<int:tutorial_id>/', views.tutorial_details, name='tutorial_details'),
+    path('tutorial/<int:tutorial_id>/', views.tutorial_detail, name='tutorial_detail'),
+        path('category/<slug:category_slug>/<slug:course_slug>/', views.course_detail, name='course_detail'),
+
 
 
 

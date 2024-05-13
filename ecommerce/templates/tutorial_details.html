@@ -7,14 +7,17 @@
 {% block content %}
 <div class="container py-5">
     <div class="row mt-5">
-        <div class="col-md-8">
-            {% if tutorial.video_url %}
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="{{ tutorial.video_url }}" allowfullscreen></iframe>
-                </div>
-            {% else %}
-                <p class="text-muted">No video available for this tutorial.</p>
-            {% endif %}
+        <div class="col-md-8 ">
+            <div class="embed-responsive embed-responsive-16by9 position-relative mb-3">
+                <!-- Overlay link -->
+                <a href="{{ tutorial.video_url }}" target="_blank" class="video-overlay-link"></a> 
+                <!-- This div will be used by the YouTube Embedded Player API -->
+                <div id="player"></div>
+            </div>
+            <!-- Watch button -->
+            <a href="{{ tutorial.video_url }}" target="_blank" class="btn btn-primary w-75 mt-3" style="color: white; text-decoration: none;" download="{{ tutorial.title }}">
+                <i class="fas fa-play-circle"></i> Watch
+            </a>
             <div class="mt-5">
                 <!-- Course Title -->
                 <h2 class="mb-4">{{ tutorial.title }}</h2>
@@ -26,30 +29,45 @@
                 <p class="mb-2"><strong>Duration:</strong> 4 weeks</p>
             </div>
         </div>
-        <div class="col-md-4 mt-5">
-           
         
+        
+        <div class="col-md-4 mt-5">
             <!-- Introduction -->
             <div class="card mt-4">
                 <div class="card-body">
-                    <h5 class="card-title">Introduction</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <h5 class="card-title">{{ tutorial.title }}</h5>
+                    <p class="card-text">{{ tutorial.description }}</p>
                 </div>
             </div>
         
-            <!-- Course Requirements -->
+            <!-- Up Next Tutorials -->
             <div class="card mt-4">
                 <div class="card-body">
-                    <h5 class="card-title">Course Requirements</h5>
+                    <h5 class="card-title">Up Next Tutorials</h5>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Requirement 1</li>
-                        <li class="list-group-item">Requirement 2</li>
-                        <li class="list-group-item">Requirement 3</li>
-                        <!-- Add more requirements as needed -->
+                        {% for next_tutorial in up_next_tutorials %}
+                            <li class="list-group-item list-group-item-action list-group-item-light mb-3 rounded shadow p-3 bg-light text-black">
+                                <a href="{% url 'tutorial_detail' tutorial_id=next_tutorial.id %}" class="text-decoration-none text-primary">{{ next_tutorial.title }}</a>
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Load the YouTube Embedded Player API asynchronously
+    function onYouTubeIframeAPIReady() {
+        new YT.Player('player', {
+            height: '360',
+            width: '640',
+            videoId: '{{ tutorial.video_id }}', // Replace 'video_id' with the ID of your YouTube video
+        });
+    }
+</script>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
 {% endblock %}

@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import *
 from accounts.models import *
@@ -36,17 +37,21 @@ def course_detail(request, category_slug, course_slug):
     return render(request, 'course_detail.html', context)
 
 def add_to_cart(request, category_slug, course_slug):
-    course = get_object_or_404(Course, slug=course_slug)
+    if request.user.is_authenticated:
+        course = get_object_or_404(Course, slug=course_slug)
+        
+        if 'cart' not in request.session:
+            request.session['cart'] = []
     
-    if 'cart' not in request.session:
-        request.session['cart'] = []
-
-    cart_course_ids = request.session.get('cart', [])
-    if course.id not in cart_course_ids:
-        request.session['cart'].append(course.id)
-        request.session.modified = True
-
-    return redirect('cart')
+        cart_course_ids = request.session.get('cart', [])
+        if course.id not in cart_course_ids:
+            request.session['cart'].append(course.id)
+            request.session.modified = True
+    
+        return redirect('cart')
+    else:
+        messages.info(request, 'Please login to add course to cart')
+        return redirect('login')
 
 
 def cart(request):
@@ -124,39 +129,18 @@ def course_tutorials(request, course_id):
 
 # views.py
 
-def tutorial_details(request, tutorial_id):
+def tutorial_detail(request, tutorial_id):
+    # Get the tutorial object
     tutorial = get_object_or_404(Tutorial, pk=tutorial_id)
     
-    # Get the category of the current tutorial
-    category = tutorial.course.category
+    # Get the course of the tutorial
+    course = tutorial.course
     
-    # Get the upcoming tutorials in the same category, excluding the current tutorial
-    upcoming_tutorials = Tutorial.objects.filter(course__category=category).exclude(id=tutorial_id)
+    # Get up next tutorials within the same course, excluding the current tutorial
+    up_next_tutorials = Tutorial.objects.filter(course=course).exclude(pk=tutorial.pk)[:5]
     
     context = {
         'tutorial': tutorial,
-        'upcoming_tutorials': upcoming_tutorials
+        'up_next_tutorials': up_next_tutorials
     }
     return render(request, 'tutorial_details.html', context)
-
-
-
-def up_next_tutorials(request, course_id):
-    try:
-        # Retrieve the purchased course
-        course = Course.objects.get(pk=course_id)
-        
-        # Retrieve the category of the purchased course
-        category = course.category
-        
-        # Filter upcoming tutorials from the same category
-        latest_module_number = Tutorial.objects.filter(course__category=category).aggregate(Max('module_number'))['module_number__max']
-        up_next_tutorials = Tutorial.objects.filter(course__category=category, module_number__gt=latest_module_number).order_by('module_number')
-        
-        context = {
-            'course': course,
-            'up_next_tutorials': up_next_tutorials
-        }
-        return render(request, 'up_next_tutorials.html', context)
-    except Course.DoesNotExist:
-        return HttpResponse("Course does not exist.")

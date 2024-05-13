@@ -21,6 +21,7 @@
 
 
 <!-- Purchased Courses Section -->
+{% if request.user.is_authenticated %}
 <section id="purchased-courses" class="purchased-courses py-5">
   <div class="container">
     <h2 class="text-center mb-4 py-3">Available Subjects</h2>
@@ -49,7 +50,7 @@
   
   </div>
 </section>
-
+{% else %}
 
   <!-- Category Section -->
   <section id="categories" class="categories py-5">
@@ -84,7 +85,7 @@
           <img src="{{ course.course_img.url }}" class="card-img-top" alt="Python Course">
           <div class="card-body">
             <h5 class="card-title">{{ course.course_name }}</h5>
-            <p class="card-text">Learn Python from scratch to advanced level.</p>
+            <p class="card-text">{{ course.desc }}</p>
             <p class="card-text">Price: ₹{{ course.price }}</p>
             <a href="{% url 'course_detail' category_slug=course.category.slug course_slug=course.slug %}" class="btn btn-primary">Enroll Now</a>
           </div>
@@ -127,7 +128,7 @@
         </div>
     </div>
 </section>
-
+{% endif %}
 
 
   <!-- Footer -->
