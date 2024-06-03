@@ -61,9 +61,8 @@
           <div class="col-lg-4 mb-4">
             <div class="card h-100">
               <img src="{{ category.img.url }}" class="card-img-top" alt="{{ category.category_name }}">
-              <div class="card-body">
-                <h5 class="card-title">{{ category.category_name }}</h5>
-                <p class="card-text">{{ category.desc }}</p>
+              <div class="card-body text-center">
+               
                 <a href="{% url 'products_by_category' category_slug=category.slug %}" class="btn btn-primary">Explore {{ category.category_name }}</a>
               </div>
             </div>
