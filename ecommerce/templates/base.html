@@ -83,18 +83,19 @@
           <li class="nav-item">
             <span class="nav-link text-white mx-2">Hello, Guest</span>
           </li>
-          <li class="nav-item mx-2">
-            <form action="{% url 'login' %}" method="get">
-              {% csrf_token %}
-              <button type="submit" class="nav-link text-white btn btn-outline-warning">Login</button>
+          <li class="nav-item mx-2 ">
+            <form action="{% url 'login' %}" method="get" class="d-flex">
+                {% csrf_token %}
+                <button type="submit" class="nav-link text-white btn btn-outline-warning flex-grow-1 flex-md-grow-0 mx-2 my-1 my md-0 my md-0 my md-0 flex-md-grow-0">Login</button>
             </form>
-          </li>
-          <li class="nav-item mx-2">
-            <form action="{% url 'register' %}" method="get">
-              {% csrf_token %}
-              <button type="submit" class="nav-link text-white btn btn-outline-warning">Register</button>
+        </li>
+        <li class="nav-item mx-2">
+            <form action="{% url 'register' %}" method="get" class="d-flex">
+                {% csrf_token %}
+                <button type="submit" class="nav-link text-white btn btn-outline-warning flex-grow-1 flex-md-grow-0 mx-2 my-1 my md-0 my md-0 flex-md-grow-0">Register</button>
             </form>
-          </li>
+        </li>
+        
         </ul>
       {% endif %}
       

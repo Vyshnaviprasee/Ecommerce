@@ -58,7 +58,7 @@
       <h2 class="text-center mb-4 py-3">Featured Categories</h2>
       <div class="row">
         {% for category in categories %}
-          <div class="col-lg-6 mb-4">
+          <div class="col-lg-4 mb-4">
             <div class="card h-100">
               <img src="{{ category.img.url }}" class="card-img-top" alt="{{ category.category_name }}">
               <div class="card-body">
@@ -77,9 +77,9 @@
 <!-- Courses Section -->
 <section id="courses" class="courses py-5">
   <div class="container">
-    <h2 class="text-center mb-4 py-3">Our Courses</h2>
+    <h2 class="text-center mb-4 py-3">Our Most Popular Courses</h2>
     <div class="row">
-      {% for course in courses %}
+      {% for course in featured_courses %}
       <div class="col-lg-4 mb-4">
         <div class="card">
           <img src="{{ course.course_img.url }}" class="card-img-top" alt="Python Course">
@@ -96,41 +96,42 @@
   </div>
 </section>
 
-<!-- Testimonial Section -->
-<section class="testimonial py-5">
-    <div class="container">
-        <h2 class="text-center mb-4">Student Testimonials</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-text">"I loved the Python course! It was well-structured and easy to follow. I highly recommend it to anyone looking to learn programming."</p>
-                        <p class="card-text"><strong>John Doe</strong>, Python Student</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-text">"The Java course was fantastic! The instructor was very knowledgeable, and the exercises helped me grasp complex concepts easily."</p>
-                        <p class="card-text"><strong>Jane Smith</strong>, Java Student</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-text">"ReactJS course exceeded my expectations! The hands-on projects were my favorite part, and now I feel confident building web applications."</p>
-                        <p class="card-text"><strong>Michael Johnson</strong>, ReactJS Student</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
+
 {% endif %}
 
-
+<!-- Testimonial Section -->
+<section class="testimonial py-5">
+  <div class="container">
+      <h2 class="text-center mb-4">Student Testimonials</h2>
+      <div class="row">
+          <div class="col-md-4 mb-4">
+              <div class="card">
+                  <div class="card-body">
+                      <p class="card-text">"I loved the Python course! It was well-structured and easy to follow. I highly recommend it to anyone looking to learn programming."</p>
+                      <p class="card-text"><strong>John Doe</strong>, Python Student</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4 mb-4">
+              <div class="card">
+                  <div class="card-body">
+                      <p class="card-text">"The Java course was fantastic! The instructor was very knowledgeable, and the exercises helped me grasp complex concepts easily."</p>
+                      <p class="card-text"><strong>Jane Smith</strong>, Java Student</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4 mb-4">
+              <div class="card">
+                  <div class="card-body">
+                      <p class="card-text">"ReactJS course exceeded my expectations! The hands-on projects were my favorite part, and now I feel confident building web applications."</p>
+                      <p class="card-text"><strong>Michael Johnson</strong>, ReactJS Student</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
   <!-- Footer -->
   
 

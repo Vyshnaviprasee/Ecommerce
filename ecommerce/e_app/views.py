@@ -6,8 +6,8 @@ from store.models import Course, Category, Order
 # Create your views here.
 
 def index(request):
-    # Get all available courses
-    courses = Course.objects.filter(is_available=True)
+    # Get all available courses ordered by priority and limit to 4
+    featured_courses = Course.objects.filter(is_available=True).order_by('-priority')[:3]
     
     # Check if the user is authenticated
     if request.user.is_authenticated:
@@ -20,11 +20,12 @@ def index(request):
     categories = Category.objects.all()
     
     context = {
-        'courses': courses,
+        'featured_courses': featured_courses,  # Pass featured courses to the template
         'categories': categories,
         'purchased_courses': purchased_courses  # Pass purchased courses to the template
     }
     return render(request, 'index.html', context)
+
 
 def course(request):
     try:

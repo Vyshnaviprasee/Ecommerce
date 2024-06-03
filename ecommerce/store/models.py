@@ -15,6 +15,8 @@ class Course(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     study_material = models.FileField(upload_to='study_materials/', default=timezone.now, blank=True, null=True)
+    priority = models.IntegerField(default=0)
+
 
     class Meta:
         verbose_name = 'course'
